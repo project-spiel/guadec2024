@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="svg3014" version="1.1" inkscape:version="0.48.5 r10040" width="408" height="408" sodipodi:docname="Windows-cortana-Cortana_tile_LG.jpg">
+  <metadata id="metadata3020">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs id="defs3018"/>
+  <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1366" inkscape:window-height="706" id="namedview3016" showgrid="false" inkscape:zoom="1.190083" inkscape:cx="241.05461" inkscape:cy="194.77213" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="svg3014"/>
+  <g id="g3039">
+    <path inkscape:connector-curvature="0" id="rect3024" d="m 72.465626,0.13559322 263.069024,0 c 40.14597,0 72.46563,32.25310678 72.46563,72.31638378 l 0,263.231613 c 0,40.06328 -32.31966,72.31638 -72.46563,72.31638 l -263.069024,0 C 32.319669,407.99997 0,375.74687 0,335.68359 L 0,72.451977 C 0,32.3887 32.319669,0.13559322 72.465626,0.13559322 z" style="fill:#249fe5;fill-opacity:1;fill-rule:evenodd;stroke:none"/>
+    <path style="fill:#9adaf6;fill-opacity:1;stroke:none" d="m 204.80621,57.177863 c -82.59946,0 -149.563144,66.451207 -149.563144,148.425127 0,81.97391 66.963684,148.42512 149.563144,148.42512 82.59945,0 149.56314,-66.45121 149.56314,-148.42512 0,-81.97392 -66.96369,-148.425127 -149.56314,-148.425127 z m 0,29.040772 c 66.43869,0 120.29643,53.448815 120.29643,119.384355 0,65.93554 -53.85774,119.38435 -120.29643,119.38435 -66.4387,0 -120.296437,-53.44881 -120.296437,-119.38435 0,-65.93554 53.857737,-119.384355 120.296437,-119.384355 z" id="path2997" inkscape:connector-curvature="0"/>
+    <path style="fill:white;fill-opacity:1;stroke:none" d="m 204.80621,86.218635 c -66.4387,0 -120.296437,53.448815 -120.296437,119.384355 0,65.93554 53.857737,119.38435 120.296437,119.38435 66.43869,0 120.29643,-53.44881 120.29643,-119.38435 0,-65.93554 -53.85774,-119.384355 -120.29643,-119.384355 z m 0,24.523595 c 52.79182,0 95.58622,42.46873 95.58622,94.86076 0,52.39202 -42.7944,94.86076 -95.58622,94.86076 -52.79183,0 -95.58622,-42.46874 -95.58622,-94.86076 0,-52.39203 42.79439,-94.86076 95.58622,-94.86076 z" id="path3000" inkscape:connector-curvature="0"/>
+  </g>
+</svg>

@@ -1,40 +1,709 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+  <title>Spiel: GUADEC2024</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+  <link rel="stylesheet" href="dist/reset.css">
+  <link rel="stylesheet" href="dist/reveal.css">
+  <link rel="stylesheet" href="dist/theme/white.css">
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+  <style>
+    body {
+      font-size: 10%;
+    }
+
+    footer {
+      text-align: right;
+      font-size: 50%;
+      margin-top: 3em;
+    }
+
+    section {}
+
+    #logos>img {
+      width: 2em;
+      margin: 0;
+    }
+
+    #logos {
+      width: 2.5em;
+    }
+
+    table.features th:not(:last-child),
+    table.features td:not(:last-child) {
+      border-bottom: none;
+      border-right: 1px solid;
+    }
+
+    table.features td {
+      border-top: 1px solid;
+      font-size: 75%;
+    }
+
+    table.features td:first-child {
+      width: 3em;
+    }
+
+    table.features td:not(:first-child) {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    ul.features {
+      list-style: none;
+      padding: 0px;
+    }
+
+    ul.features li:before {
+      content: '❌';
+      margin: 0 .5em;
+      font-size: 75%;
+      vertical-align: middle;
+    }
+
+    ul.features li.done:before {
+      content: '✅';
+    }
+
+    .endslide>div {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .endslide>div>div {
+      text-align: left;
+    }
+
+    .endslide ul {
+      list-style: none;
+      margin: 0;
+      font-size: smaller;
+    }
+  </style>
+</head>
+
+<body style="background-color: #ebefe4;">
+  <div class="reveal">
+    <div class="slides">
+      <section data-transition="none">
+        <div style="display: flex;">
+          <img alt="Spiel Logo" src="spiel-logo.svg" style="margin-right: 1em;">
+          <div style="text-align: left; font-size: 65%; align-content: center;">
+            <h1>The Whole Spiel</h1>
+            <h2>A New Speech Platform</h2>
+            <p>An Introduction and A Cry for Help
+          </div>
+        </div>
+        <footer>Eitan Isaacson</footer>
+        <aside class="notes">
+          <ul>
+            <li>Hey, I'm Eitan.</li>
+            <li>I sometimes go by eeejay.</li>
+            <li>I am a relapsing GNOME developer who works for Mozilla.</li>
+            <li>I want to introduce a passion project that I have been slowly hacking away at.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h2>Speech Is Everywhere</h2>
+        <div style="display: flex; margin: 0 2em; justify-content: space-around;">
+          <ul>
+            <li>Screen Readers</li>
+            <li>Virtual Assistants</li>
+            <li>Automotive</li>
+            <li>Navigation</li>
+            <li>E-Book Narration</li>
+            <li>Notifications</li>
+            <li>Telephony</li>
+          </ul>
+          <div id="logos">
+            <img src="Googleassistant.svg" alt="Google Assistant logo">
+            <img src="bixby.svg" alt="Samsung Bixby logo">
+            <img src="cortana.svg" alt="Microsoft Cortana logo">
+            <img src="siri.webp" alt="Apple Siri logo">
+            <img src="alexa.svg" alt="Amazon Alexa logo">
+          </div>
+        </div>
+        <aside class="notes">
+          <ul>
+            <li>Accessibility applications have been front anc center.</li>
+            <li>The use cases and applications have proliferated</li>
+            <li>I would argue that over the past decade the investment in speech interfaces has exceeded graphical ones
+              in many ways</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>Web Speech API</h3>
+        <pre><code data-trim data-noescape>
+          for (let voice of speechSynthesis.getVoices()) {
+            let utterance =
+              new SpeechSynthesisUtterance(`Hello from ${voice.name}`);
+            utterance.voice = voice;
+            utterance.addEventListener('start',
+              evt => console.log(evt.target.text));
+            speechSynthesis.speak(utterance);
+          }
+          
+          setTimeout(() => speechSynthesis.cancel(), 10000);          
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>11 years ago I was tasked with implementing the speech synthesis bindings of the Web Speech API</li>
+            <li>Here is a short snippet showing what it does.</li>
+            <li>This works in almost all browsers today.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3 style="margin: 0">How It Started :)</h3>
+        <video data-autoplay src="windows_firefox.webm"></video>
+        <aside class="notes">
+          <ul>
+            <li>Once we had a working Web Speech API implementation we decided to make a complimentary user facing
+              feature.</li>
+            <li>We added a read out loud feature to are beloved reader mode</li>
+            <li>Look how awesome this is</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3 style="margin: 0">How It's Going :(</h3>
+        <video data-autoplay src="linux_firefox.webm"></video>
+        <aside class="notes">
+          <ul>
+            <li>Unfortunately in Linux, the default experience is not awesome.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <table class="features">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Windows</th>
+              <th>MacOS</th>
+              <th>Android</th>
+              <th>Linux</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Boundary Events</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>❌</td>
+            </tr>
+            <tr>
+              <td>Pause Resume</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>❌</td>
+              <td>❌</td>
+            </tr>
+            <tr>
+              <td>Volume Change</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>❌</td>
+              <td>❌</td>
+            </tr>
+            <tr>
+              <td>Concurrent Speech</td>
+              <td>❌</td>
+              <td>✅</td>
+              <td>❌</td>
+              <td>❌</td>
+            </tr>
+            <tr>
+              <td>Natural Voice</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>❌</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="notes">
+          <ul>
+            <li>There is a lot of disparaty in synthesis features across platforms.</li>
+            <li>Normalizing these differences to implmement Web Speech API was a challenge</li>
+            <li>The narrate feature I just showed needed to be designed for the lowest common denominator</li>
+            <li>Which one is the that? (Linux)</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3 style="margin: 0">Speech Dispatcher</h3>
+        <img alt="Speech Dispatcher architecture" style="max-height: 4em;" src="speechd.png"">
+        <ul style=" font-size: 70%;">
+        <li>A standalone auto spawning daemon</li>
+        <li>Uses its own socket protocol</li>
+        <li>Manages a global queue of synthesis requests and schedules them according to priority flags</li>
+        <li>Sends audio to device from the daemon process</li>
+        <li>Offers extensibility in the form of output modules that need to be configured with text files</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>Speech Dispatcher was first introduced in 2001</li>
+            <li>It is a very opinionated framework that schedules utterances according to priority.</li>
+            <li>It allows utterances to interrupt or delay other utterances from other applications.</li>
+            <li>The problems that Speech Dispatcher tackles, such as auto-spawning, wire protocols, IPC transports,
+              session persistence, modularity, and others have been generalized</li>
+            <li>It is not my place to propose Speech Dispatcher is replaced. It offers value to screen reader users.
+            </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>How did we end up with eSpeak?</h3>
+        <ul>
+          <li>It has a simple permissive license</li>
+          <li>It supports many, many languages and dialects</li>
+          <li>It is tiny ~1mb??</li>
+          <li>It is fully featured</li>
+          <li>It is very fast and responsive</li>
+          <li>Screen reader users generally like it</li>
+          <li>…but <audio src="espeak.wav" controls style="vertical-align: middle;"></audio></li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>eSpeak is a formant synthesizer.</li>
+            <li>It simulates the human speech tract</li>
+            <li>An analogy I would use for formant synthesizers is monospace or terminal fonts.</li>
+          </ul>
+        </aside>
+
+      </section>
+
+      <section data-transition="none">
+        <video data-autoplay style="max-height: 65vh;" src="jamie.mp4"></video>
+      </section>
+
+      <section data-transition="none">
+        <ul class="features">
+          <li>Boundary events</li>
+          <li>Pause / resume</li>
+          <li>Volume change</li>
+          <li>Concurrent speech</li>
+          <li>Natural voice</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>So as you saw in the platforms features breakdown earlier, Linux is behind in all those items.</li>
+            <li>If the only gaps were the first two items I believe we could have easily remedy those.</li>
+            <li>But the bottom two items require something more ambitious.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h2>Introducing Spiel</h2>
+        <ol>
+          <li class="fragment">A D-Bus interface</li>
+          <li class="fragment">A client library</li>
+          <li class="fragment">A voice distribution scheme</li>
+        </ol>
+        <aside class="notes">
+          <ul>
+            <li>Spiel isn't a single, thing. It consists of 3 parts that I will introduce.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>1. A D-Bus Interface</h3>
+      </section>
+
+      <section data-transition="none">
+        <h2 class="r-fit-text"><code>org.freedesktop.Speech.Provider</code></h2>
+        <pre style="margin: 0; width: initial;"><code data-line-numbers="3-6|8-17|19-30" data-trim data-noescape style="font-size: smaller;">
+          @dbus_interface("org.freedesktop.Speech.Provider")
+          class ExampleProvider(object):
+             @property
+             def Name(self) -> Str:
+                 """Return the human-readable name of the speech provider"""
+                 return "Example"
+          
+             @property
+             def Voices(self) -> List[Tuple[Str, Str, Str, UInt64, List[Str]]]:
+                 """Return a list of available voices, their audio output format,
+                    features and supported languages"""
+                 audio_format = "audio/x-raw,format=S16LE,channels=1,rate=22000"
+                 features = SpeechProvider.VoiceFeature.NONE
+                 return [
+                     ["Charlie", "gmw/en-US", audio_format, features, ["en-US"]],
+                     ["Dominique", "roa/fr", audio_format, features, ["fr-FR"]],
+                 ]
+          
+             def Synthesize(
+                 self,
+                 fd: UnixFD,
+                 utterance: Str,
+                 voice_id: Str,
+                 pitch: Double,
+                 rate: Double,
+                 is_ssml: Bool,
+                 language: Str,
+             ):
+                 """Synthesize speech write output to provided file descriptor"""
+                 do_synthesis(fd, utterance, voice_id, pitch, rate, is_ssml, language)
+                           
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>This is a common interface that all speech providers will implement.</li>
+            <li>It consists of the members: two properties and a method.</li>
+            <li>The name is a localizable name for the provider</li>
+            <li>The voices property returns a list of voices</li>
+            <li>The synthesize method takes a file descriptor and utterance arguments.</li>
+            <li>Autio frames and event data is sent back over the file descriptor</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <p style="font-size: 50%;">Client searches for all <code>*.Speech.Provider</code> known names on the session bus
+        </p>
+        <img style="height: 40vh" src="get_voices.svg" alt="Getting voices from providers">
+        <p style="font-size: 50%;">...and then collects all the voices they provide</p>
+        <aside class="notes">
+          <ul>
+            <li>The client scans all the known names on the session bus to find services with the right suffix.</li>
+            <li>It then queries those services for their voices and collates them to a single list.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <p style="font-size: 50%;">Client calls <code>synthesize()</code> and profides a file descriptor</p>
+        <img style="height: 40vh" src="synthesize.svg" alt="Synthesizing speech">
+        <p style="font-size: 50%;">...the provider writes audio frames and event data to descriptor</p>
+        <aside class="notes">
+          <ul>
+            <li>The client calls synthesize and provides a file descriptor</li>
+            <li>Th provider writes synthesized audio frames and boundary events to the pipe</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>2. A Client Library</h3>
+      </section>
+
+      <section data-transition="none">
+        <h2><code>libspiel</code></h2>
+        <pre style="margin: 0; width: initial;"><code data-trim data-noescape style="font-size: smaller;">
+          const speaker = await Spiel.Speaker.new(null);
+          speaker.connect('utterance-started',
+              (_, utt) => console.log(utt.get_text(), utt == utterance));
+            
+          for (let voice of speaker.get_voices()) {
+              let utterance = new Spiel.Utterance(
+                  { voice, text: `Hello from ${voice.get_name()}` }
+              );
+              speaker.speak(utterance)
+          }
+          
+          setTimeout(() => {
+              speaker.cancel();
+          }, 10000);  
+        </code></pre>
+        <aside class="notes">
+          <ul>
+            <li>I tried to make this example similar to the DOM js example from earlier. The ergonomics are very
+              similar.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>libspiel Features</h3>
+        <ul style="font-size: smaller;">
+          <li>Inspired by Web Speech API, reusing its concepts.</li>
+          <li>Each “Speaker” root class manages its own utterance queue.</li>
+          <li>Speech is outputted via gstreamer, any gstreamer sink can be swapped out.</li>
+          <li>The list of voices is a live ListModel that is updated as providers come and go and new voices are
+            installed.</li>
+          <li>Auto-selects voice according to specified utterance language</li>
+          <li>Maybe one day: language auto-detection.</li>
+          <li>Voice selection is configurable via gsettings</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>By default libspiel will do the right thing:</li>
+            <li>Select an appropriate voice</li>
+            <li>Output to the default device</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>libspiel Ports</h3>
+        <ul>
+          <li>Andy Holmes ported Orca to libspiel</li>
+          <li>I have a WIP port for Firefox</li>
+          <li>Foliate?</li>
+          <li>Calibre?</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>The Orca port can co-exist with the speech dispatcher support, so users do not need to migrate to
+              spiel-installer</li>
+            <li>There aren't that many talking applications (yet), so this is a very finite endeavor. </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <img class="r-stretch" src="text-to-speech.png" alt="Spoken Content settings mockup">
+        Credit: Sam Hewitt
+      </section>
+
+      <section data-transition="none">
+        <ul class="features">
+          <li class="done">Boundary events</li>
+          <li class="done">Pause / resume</li>
+          <li class="done">Volume change</li>
+          <li class="done">Concurrent speech</li>
+          <li>Natural voice</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>So far we have 4 down, 1 more to go.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>3. A Voice Distribution Scheme</h3>
+      </section>
+
+      <section data-transition="none">
+        <h3>Neural Network Voices are a game changer</h3>
+      </section>
+
+      <section data-transition="none">
+        <h3>There is no perfect engine or voice</h3>
+        <ul>
+          <li>The license isn’t permissive enough</li>
+          <li>The voice’s license is not permissive</li>
+          <li>The language support is limited</li>
+          <li>The voice data is large (+60mb)</li>
+          <li>The dependencies are eclectic</li>
+          <li>AI voices are game changer</li>
+        </ul>
+      </section>
+
+      <section data-transition="none">
+        <img class="r-stretch" src="flatpak.svg" alt="Flatpak logo">
+      </section>
+
+      <section data-transition="none">
+        <img class="r-stretch" src="flathub.svg" alt="Flathub badge">
+      </section>
+
+      <section data-transition="none">
+        <h3>Bundle It All In a Flatpak?</h3>
+        <ul>
+          <li>Piper's voice data is 8gb</li>
+          <li>There are 102 eSpeak voices</li>
+          <li>Can't anticipate the user's desired language</li>
+        </ul>
+        <p class="fragment"><strong>Let's use Flatpak extensions for voice data</strong></p>
+        <aside class="notes">
+          <ul>
+            <li>A usability concern that I have is that a user would be overwhelmed with hundreds of voices.
+              They should be able to make a choice as to which voices are installed on their system.
+            </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h3>Further Flatpak/Appstream Gaps</h3>
+        <ul>
+          <li>When installing a voice flatpak extension:</li>
+          <ul>
+            <li>Extensions can’t pull in dependencies.</li>
+            <li>When a voice extension is installed the provider service needs to be restarted</li>
+            <li>Flatpakref files don’t work with extensions</li>
+          </ul>
+          <li>AppStream could use some voice-specific elements, like voice sample.</li>
+          <li>Uninstalling an engine does not kill the D-Bus service</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>The promise of Flatpak that really appealed to me was the 1-click install. Unfortunately, that does not
+              work with flatpak extensions that extend services.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <img src="spiel-installer.png" alt="Spiel Installer screenshot">
+        <aside class="notes">
+          <ul>
+            <li>As an ad-hoc workaround, and to demontrate that one-click promise. I wrote a simple voice installer.
+            </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <ul class="features">
+          <li class="done">Boundary events</li>
+          <li class="done">Pause / resume</li>
+          <li class="done">Volume change</li>
+          <li class="done">Concurrent speech</li>
+          <li class="done">Natural voice</li>
+        </ul>
+        <aside class="notes">
+          <ul>
+            <li>So now that we checked all the boxes, let's see it all work together.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <video data-autoplay src="english_demo.webm"></video>
+      </section>
+
+      <section data-transition="none">
+        <video data-autoplay src="arabic_demo.webm"></video>
+      </section>
+
+      <section data-transition="none">
+        <p>Something to think about...</p>
+        <h2 class="r-fit-text fragment"><code>org.freedesktop.Speech.Recognizer</code></h2>
+        <aside class="notes">
+          <ul>
+            <li>After the solution I presented for speech synthesis, I'm going to put this out there and let you all
+              think about how this would work for recognition.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section data-transition="none">
+        <h2>A Cry for Help</h2>
+      </section>
+
+      <section data-transition="none">
+        <h3>Write a Provider</h3>
+        <ul>
+          <li>Svox</li>
+          <li>Festival</li>
+          <li>Voxin</li>
+          <li>Mimic3</li>
+          <li>RHVoice</li>
+          <li>Windows voices via Wine</li>
+          <li>Android voices?</li>
+          <li>Cloud voices</li>
+          <li>The latest and greatest neural network TTS</li>
+        </ul>
+      </section>
+
+      <section data-transition="none">
+        <h3>Port and App, or Make Yours Talk</h3>
+        <ul>
+          <li>WebKitGTK?</li>
+          <li>Foliate?</li>
+          <li>Calibre?</li>
+        </ul>
+      </section>
+
+      <section data-transition="none">
+        <h3>Discovery and Distribution</h3>
+        <ul>
+          <li>Enhance Flatpak</li>
+          <li>Expand Flathub (maybe a voices micro-site?)</li>
+          <li>Implement spoken content in GNOME Settings</li>
+        </ul>
+      </section>
+
+      <section data-transition="none">
+        <h3>Write a Portal</h3>
+        <p>Currently, client apps need full session D-Bus access</p>
+      </section>
+
+      <section data-transition="none">
+        <h3>Make This a Grown-up Project</h3>
+        <ul>
+          <li>Website</li>
+          <li>Documentation</li>
+          <li>Test coverage</li>
+          <li>Continuous integration</li>
+          <li>Release management</li>
+          <li>Pretty graphics</li>
+        </ul>
+      </section>
+
+      <section data-transition="none">
+        <h2>Acknowledgements</h2>
+        <ul>
+          <li>Mozilla</li>
+          <li>STF (Sonny)</li>
+          <li>Andy Holmes</li>
+          <li>Contributors large and small</li>
+        </ul>
+      </section>
+
+      <section data-transition="none" class="endslide">
+        <div>
+          <div>
+            <h3>Eitan</h3>
+            <ul>
+              <li>@eeejay@mastodon.social</li>
+              <li>@eeejay:matrix.org</li>
+              <li>eitan@monotonous.org</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Spiel</h3>
+            <ul>
+              <li><a href="https://project-spiel.org">project-spiel.org</a></li>
+              <li><a href="https://github.com/project-spiel">github.com/project-spiel</a></li>
+              <li>#speech:gnome.org</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+
+    </div>
+  </div>
+
+  <script src="dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+      hash: true,
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+  </script>
+</body>
+
 </html>
