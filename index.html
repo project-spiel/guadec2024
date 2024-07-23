@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="plugin/highlight/monokai.css">
 
   <style>
-    body {
-      font-size: 10%;
+    :root {
+      --r-background-color: #ebefe4;
     }
 
     footer {
@@ -62,14 +62,14 @@
     }
 
     ul.features li:before {
-      content: '❌';
+      content: '❌' / 'Does not work: ';
       margin: 0 .5em;
       font-size: 75%;
       vertical-align: middle;
     }
 
     ul.features li.done:before {
-      content: '✅';
+      content: '✅' / 'Works: ';
     }
 
     .endslide>div {
@@ -89,7 +89,7 @@
   </style>
 </head>
 
-<body style="background-color: #ebefe4;">
+<body>
   <div class="reveal">
     <div class="slides">
       <section data-transition="none">
@@ -167,7 +167,7 @@
 
       <section data-transition="none">
         <h3 style="margin: 0">How It Started :)</h3>
-        <video data-autoplay src="windows_firefox.webm"></video>
+        <video aria-label="Demo of Firefox Narrate on Windows" data-autoplay src="windows_firefox.webm"></video>
         <aside class="notes">
           <ul>
             <li>Once we had a working Web Speech API implementation we decided to make a complimentary user facing
@@ -180,7 +180,7 @@
 
       <section data-transition="none">
         <h3 style="margin: 0">How It's Going :(</h3>
-        <video data-autoplay src="linux_firefox.webm"></video>
+        <video aria-label="Demo of Firefox Narrate on Linux" data-autoplay src="linux_firefox.webm"></video>
         <aside class="notes">
           <ul>
             <li>Unfortunately in Linux, the default experience is not awesome.</li>
@@ -292,7 +292,7 @@
       </section>
 
       <section data-transition="none">
-        <video data-autoplay style="max-height: 65vh;" src="jamie.mp4"></video>
+        <video aria-label="Video of Jamie speaking at 900 wpm" data-autoplay style="max-height: 65vh;" src="jamie.mp4"></video>
       </section>
 
       <section data-transition="none">
@@ -581,11 +581,11 @@
       </section>
 
       <section data-transition="none">
-        <video data-autoplay src="english_demo.webm"></video>
+        <video aria-label="Demo showing installation of Jenny Piper voice and then using it in Firefox" data-autoplay src="english_demo.webm"></video>
       </section>
 
       <section data-transition="none">
-        <video data-autoplay src="arabic_demo.webm"></video>
+        <video aria-label="Demo showing installation of Arabic voice. Firefox detects the installation and offers Narrate where at first it didn't" data-autoplay src="arabic_demo.webm"></video>
       </section>
 
       <section data-transition="none">
